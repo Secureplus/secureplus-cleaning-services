@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secureplus Cleaning Services</title>
+    <style>
+        :root { --primary: #1e3a8a; --secondary: #2563eb; --accent: #059669; --bg: #f8fafc; --text: #1e293b; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
+        header { background: var(--primary); color: white; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .brand-container { display: flex; align-items: center; gap: 10px; }
+        .logo-box { width: 38px; height: 38px; background: white; color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .brand h1 { font-size: 15px; margin: 0; font-weight: 800; line-height: 1.2; }
+        .brand p { font-size: 10px; margin: 2px 0 0 0; color: #93c5fd; }
+        .nav-btns { display: flex; gap: 4px; overflow-x: auto; }
+        .nav-btns button { background: #1d4ed8; color: white; border: none; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; white-space: nowrap; }
+        .container { max-width: 600px; margin: 0 auto; padding: 16px; padding-bottom: 80px; }
+        .card { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 16px; border: 1px solid #e2e8f0; }
+        h2, h3 { color: var(--primary); margin-top: 0; }
+        label { display: block; font-size: 12px; font-weight: bold; color: #475569; margin-bottom: 4px; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: var(--secondary); box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
+        .gps-btn { background: #0f172a; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; margin-top: 6px; display: inline-flex; align-items: center; gap: 4px; }
+        .price-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+        .price-val { font-size: 22px; font-weight: 900; color: var(--primary); }
+        .btn-main { background: var(--secondary); color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 15px; font-weight: bold; margin-top: 16px; cursor: pointer; }
+        .btn-secondary { background: #475569; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 15px; font-weight: bold; margin-top: 10px; cursor: pointer; }
+        .hidden { display: none !important; }
+        table { width: 100%; font-size: 11px; border-collapse: collapse; margin-top: 8px; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f1f5f9; color: #475569; }
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 1000; }
+        .modal-content { background: white; border-radius: 16px; padding: 20px; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; }
+        .gallery-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+        .gallery-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; padding: 10px; }
+        .gallery-img { width: 100%; height: 160px; background: #cbd5e1; border-radius: 6px; object-fit: cover; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 12px; font-weight: bold; }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .product-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-container">
+            <div class="logo-box">SP</div>
+            <div class="brand">
+                <h1>Secureplus</h1>
+                <p>Samastipur | Ph: 8825119811</p>
+            </div>
+        </div>
+        <!-- Notice: Admin button removed completely from public navigation -->
+        <div class="nav-btns">
+            <button onclick="switchTab('cust')">Book</button>
+            <button onclick="switchTab('shop')">Shop</button>
+            <button onclick="switchTab('gallery')">Gallery</button>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- ================= 1. BOOKING PORTAL TAB ================= -->
+        <div id="section-cust">
+            <div class="card" style="background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white;">
+                <h2 style="color: white; font-size: 18px; margin-bottom: 4px;">Water Tank Sanitization & AMC</h2>
+                <p style="font-size: 12px; margin: 0; color: #bfdbfe;">Professional PVC & RCC cleaning in Samastipur and 20km area. Secure your drinking water today.</p>
+            </div>
+
+            <div class="card">
+                <h3>Book Service Instantly</h3>
+                <form onsubmit="handleFormSubmit(event)">
+                    <label>Your Full Name</label>
+                    <input type="text" id="cName" required placeholder="Enter name">
+
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="cPhone" required placeholder="10-digit mobile number">
+
+                    <label>Complete Address (Samastipur)</label>
+                    <textarea id="cAddress" required rows="2" placeholder="House no, Colony, Landmark"></textarea>
+                    <button type="button" onclick="getLiveLocation()" class="gps-btn">📍 Detect Current Location (GPS)</button>
+
+                    <label style="margin-top: 14px;">Tank Type & Capacity Size / Plan</label>
+                    <select id="cTank" onchange="calculateTotal()">
+                        <option value="1000-onetime">Up to 1,000L Tank (Regular One-Time) - ₹699</option>
+                        <option value="1000-amc">Up to 1,000L Tank (3-Service AMC) - ₹1,749</option>
+                        <option value="2000-onetime">Up to 2,000L Tank (Regular One-Time) - ₹1,398</option>
+                        <option value="2000-amc">Up to 2,000L Tank (3-Service AMC) - ₹3,498</option>
+                        <option value="custom-onetime">More than 2,000L - Regular Cleaning (₹0.69/L)</option>
+                        <option value="custom-amc">More than 2,000L - 3-Service AMC (₹0.55/L)</option>
+                    </select>
+
+                    <div id="customDiv" class="hidden">
+                        <label>Enter Exact Capacity (Liters)</label>
+                        <input type="number" id="customLiters" value="2500" oninput="calculateTotal()" min="2001">
+                    </div>
+
+                    <label>Preferred Cleaning Date</label>
+                    <input type="date" id="cDate" required>
+
+                    <div class="price-box">
+                        <div>
+                            <span style="font-size: 10px; font-weight: bold; color: #2563eb; text-transform: uppercase;">Total Estimated Amount</span>
+                            <div id="displayAmount" class="price-val">₹699</div>
+                        </div>
+                        <div id="planSummaryText" style="font-size: 11px; color: #64748b; text-align: right; max-width: 150px;">
+                            One-time cleaning up to 1,000L
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-main">Proceed to Booking Options</button>
+                </form>
+            </div>
+
+            <!-- AMC Status Checker Card -->
+            <div class="card">
+                <h3>Track Your Next AMC Date</h3>
+                <label>Enter Registered Mobile Number</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="tel" id="trackInput" placeholder="10-digit number" style="margin-top: 0;">
+                    <button type="button" onclick="trackAMC()" style="background: #1e293b; color: white; border: none; padding: 0 16px; border-radius: 8px; font-weight: bold; font-size: 12px; cursor: pointer;">Check</button>
+                </div>
+                <div id="trackOutput" style="margin-top: 10px; font-size: 12px;"></div>
+            </div>
+        </div>
+
+        <!-- ================= 2. SHOPPING / PRODUCTS TAB ================= -->
+        <div id="section-shop" class="hidden">
+            <div class="card" style="background: #0f172a; color: white;">
+                <h2 style="color: white; font-size: 18px; margin-bottom: 4px;">Secureplus Cleaning Products</h2>
+                <p style="font-size: 12px; color: #94a3b8; margin: 0;">Order professional-grade cleaning tablets, disinfectants, and filters directly to your doorstep.</p>
+            </div>
+
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>Available Products</h3>
+                    <span id="cartCountBadge" style="background: var(--secondary); color: white; font-size: 11px; padding: 3px 8px; border-radius: 12px; font-weight: bold;">Cart: 0 items</span>
+                </div>
+                
+                <div class="product-grid" id="productGridContainer"></div>
+
+                <div style="margin-top: 16px; border-top: 1px solid #e2e8f0; padding-top: 12px;" id="cartSummaryBox" class="hidden">
+                    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; margin-bottom: 8px;">
+                        <span>Cart Total:</span>
+                        <span id="cartTotalPrice" style="color: var(--primary);">₹0</span>
+                    </div>
+                    <button onclick="openProductCheckout()" class="btn-main" style="background: var(--accent); margin-top: 4px;">Place Order for Products</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 3. GALLERY & FEEDBACK TAB ================= -->
+        <div id="section-gallery" class="hidden">
+            <div class="card">
+                <h3>Our Work & Client Gallery</h3>
+                <p style="font-size: 12px; color: #64748b;">Explore our professional water tank sanitization projects across homes, apartments, and institutions in Samastipur.</p>
+                <div class="gallery-grid" id="galleryContainer"></div>
+            </div>
+
+            <div class="card" style="border: 2px dashed #93c5fd; background: #f0fdf4;">
+                <h3 style="color: #065f46;">Share Your Work & Feedback</h3>
+                <p style="font-size: 12px; color: #047857;">Got your tank cleaned by Secureplus? Submit your review and upload a photo of your sparkling clean tank!</p>
+                
+                <form onsubmit="submitCustomerFeedback(event)">
+                    <label>Your Name / Institution Name</label>
+                    <input type="text" id="feedName" required placeholder="e.g. Anand Kumar / DPS School">
+
+                    <label>Rating</label>
+                    <select id="feedRating">
+                        <option value="★★★★★ (5/5)">★★★★★ - Excellent Service</option>
+                        <option value="★★★★☆ (4/5)">★★★★☆ - Very Good</option>
+                    </select>
+
+                    <label>Your Feedback / Experience</label>
+                    <textarea id="feedText" required rows="2" placeholder="Write how clean your tank is now..."></textarea>
+
+                    <label>Upload Photo (Optional)</label>
+                    <input type="file" id="feedImgFile" accept="image/*" style="padding: 6px;">
+
+                    <button type="submit" class="btn-main" style="background: #059669;">Publish Feedback & Photo</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ================= 4. SECRET ADMIN PANEL (HIDDEN BY DEFAULT) ================= -->
+        <div id="section-admin" class="hidden">
+            <div id="adminLogin" class="card" style="text-align: center; padding: 30px 16px;">
+                <h3>Admin Login</h3>
+                <p style="font-size: 12px; color: #64748b;">Enter PIN to view database & export Excel sheet.</p>
+                <input type="password" id="adminPin" placeholder="Enter PIN (5678)" style="text-align: center; max-width: 200px; margin: 10px auto;">
+                <button type="button" onclick="loginAdmin()" class="btn-main" style="max-width: 200px; margin: 10px auto;">Login</button>
+            </div>
+
+            <div id="adminPanelContent" class="hidden">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="margin: 0;">Customer Database</h3>
+                        <button onclick="exportCSV()" style="background: var(--accent); color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;">Export Excel (CSV)</button>
+                    </div>
+                    <div style="overflow-x: auto; max-height: 350px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID / Name</th>
+                                    <th>Phone / Location</th>
+                                    <th>Service Plan</th>
+                                    <th>Amount / Status</th>
+                                    <th>Next AMC</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dbTableBody"></tbody>
+                        </table>
+                    </div>
+                    <button onclick="clearDB()" style="background: none; border: none; color: #ef4444; font-size: 11px; margin-top: 12px; cursor: pointer; text-decoration: underline;">Clear All Database Records</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= MODALS ================= -->
+    <div id="paymentModal" class="modal hidden">
+        <div class="modal-content" style="text-align: center;">
+            <h3>Choose Payment Option</h3>
+            <p style="font-size: 12px; color: #64748b;">Pay now via UPI QR code or choose to pay after service completion.</p>
+            <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 14px; margin: 12px 0;">
+                <div style="font-size: 12px; color: #475569;">Total Payable Amount</div>
+                <div id="modalAmount" style="font-size: 22px; font-weight: 900; color: var(--secondary);">₹699</div>
+            </div>
+            <button onclick="finalizeBooking('Paid Online via UPI')" class="btn-main" style="background: var(--accent);">Pay Now via UPI QR Code</button>
+            <button onclick="finalizeBooking('Pay After Service (COD)')" class="btn-secondary">Book Now & Pay After Service</button>
+            <button onclick="document.getElementById('paymentModal').classList.add('hidden')" style="background: none; border: none; color: #64748b; font-size: 12px; margin-top: 10px; cursor: pointer;">Cancel</button>
+        </div>
+    </div>
+
+    <div id="invoiceModal" class="modal hidden">
+        <div class="modal-content">
+            <div style="text-align: right;"><span id="invStatusBadge" style="background: #d1fae5; color: #065f46; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 4px;">BOOKING CONFIRMED</span></div>
+            <h3 style="color: var(--primary); margin-bottom: 2px;">SECUREPLUS CLEANING</h3>
+            <p style="font-size: 10px; color: #64748b; margin-top: 0;">Samastipur, Bihar | Ph: 8825119811</p>
+            <div style="background: #f8fafc; padding: 10px; border-radius: 8px; font-size: 11px; margin: 10px 0;">
+                <p style="margin: 2px 0;"><strong>Customer:</strong> <span id="invName"></span></p>
+                <p style="margin: 2px 0;"><strong>Phone:</strong> <span id="invPhone"></span></p>
+                <p style="margin: 2px 0;"><strong>Address / GPS:</strong> <span id="invAddress"></span></p>
+                <p style="margin: 2px 0;"><strong>Payment Status:</strong> <span id="invPaymentMode" style="font-weight: bold; color: var(--primary);"></span></p>
+            </div>
+            <table style="margin-bottom: 10px;">
+                <tr>
+                    <td id="invService" style="font-weight: bold;">Tank Service</td>
+                    <td id="invPrice" style="text-align: right; font-weight: bold;">₹699</td>
+                </tr>
+            </table>
+            <div id="invAmcBox" style="background: #e0e7ff; color: #3730a3; padding: 8px; border-radius: 6px; font-size: 10px; margin-bottom: 10px;" class="hidden">
+                <strong>AMC Schedule:</strong> 3 Services per year tracked automatically. Reminders linked to 8825119811.
+            </div>
+            <p style="font-size: 9px; text-align: center; color: #94a3b8;">Thank you for choosing Secureplus Cleaning Services!</p>
+            <button onclick="closeInvoice()" class="btn-main" style="margin-top: 10px;">Done / Close</button>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        document.getElementById('cDate').valueAsDate = new Date();
+        
+        let dbBookings = JSON.parse(localStorage.getItem('secureplus_db')) || [
+            { id: "SPC-501", name: "Amit Kumar", phone: "9876543210", address: "Kashipur, Samastipur (GPS: 25.86, 85.78)", service: "3-Service AMC (Up to 1000L)", amount: 1749, payment: "Paid Online via UPI", nextDate: "2026-08-05" }
+        ];
+
+        let catalogProducts = [
+            { id: 1, name: "Anti-Bacterial Tank Tablets (Pack of 5)", price: 299 },
+            { id: 2, name: "RO Water Purifier Filter Replacement", price: 599 },
+            { id: 3, name: "Home Disinfectant Surface Spray (500ml)", price: 249 },
+            { id: 4, name: "Heavy-Duty Floor Cleaner Liquid (1L)", price: 199 }
+        ];
+        let cart = [];
+
+        let galleryItems = JSON.parse(localStorage.getItem('secureplus_gallery')) || [
+            { name: "Samastipur College Hostel Tank", rating: "★★★★★ (5/5)", text: "Professional deep cleaning of our 5,000L RCC overhead tank. Excellent service!", img: null },
+            { name: "Private Residence (Kashipur)", rating: "★★★★★ (5/5)", text: "Very thorough scrubbing and vacuuming. Water is crystal clear now.", img: null }
+        ];
+
+        // CHECK IF URL HAS SECRET ADMIN TRIGGER ON LOAD
+        window.onload = function() {
+            if(window.location.hash === '#admin') {
+                switchTab('admin');
+            }
+        };
+
+        // ADMIN LOGIN CHECK (PIN is set to 5678)
+        function loginAdmin() {
+            const pin = document.getElementById('adminPin').value;
+            if(pin === '5678') {
+                document.getElementById('adminLogin').classList.add('hidden');
+                document.getElementById('adminPanelContent').classList.remove('hidden');
+                renderDB();
+            } else {
+                alert('Wrong PIN! Please try again.');
+            }
+        }
+
+        function switchTab(t) {
+            ['section-cust', 'section-shop', 'section-gallery', 'section-admin'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById('section-' + t).classList.remove('hidden');
+            if(t === 'shop') renderProducts();
+            if(t === 'gallery') renderGallery();
+        }
+
+        function getLiveLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude.toFixed(4);
+                        const lon = position.coords.longitude.toFixed(4);
+                        const currentVal = document.getElementById('cAddress').value;
+                        document.getElementById('cAddress').value = currentVal ? `${currentVal} (GPS: ${lat}, ${lon})` : `GPS Coordinates: ${lat}, ${lon}`;
+                        alert('Location captured successfully!');
+                    },
+                    (error) => {
+                        document.getElementById('cAddress').value = "Samastipur Area (Manual entry required due to browser privacy sandbox)";
+                        alert('Browser sandbox restricted live GPS. Area set to Samastipur - you can edit it manually.');
+                    },
+                    { timeout: 10000, enableHighAccuracy: true }
+                );
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        }
+
+        function calculateTotal() {
+            const val = document.getElementById('cTank').value;
+            const customDiv = document.getElementById('customDiv');
+            let amt = 699;
+            let desc = "";
+
+            if(val === '1000-onetime') { amt = 699; desc = "One-time cleaning up to 1,000L"; customDiv.classList.add('hidden'); }
+            else if(val === '1000-amc') { amt = 1749; desc = "3-Service AMC up to 1,000L"; customDiv.classList.add('hidden'); }
+            else if(val === '2000-onetime') { amt = 1398; desc = "One-time cleaning up to 2,000L"; customDiv.classList.add('hidden'); }
+            else if(val === '2000-amc') { amt = 3498; desc = "3-Service AMC up to 2,000L"; customDiv.classList.add('hidden'); }
+            else if(val === 'custom-onetime') {
+                customDiv.classList.remove('hidden');
+                const liters = parseInt(document.getElementById('customLiters').value) || 2500;
+                amt = Math.round(liters * 0.69);
+                desc = `Custom Regular Cleaning (${liters}L @ ₹0.69/L)`;
+            }
+            else if(val === 'custom-amc') {
+                customDiv.classList.remove('hidden');
+                const liters = parseInt(document.getElementById('customLiters').value) || 2500;
+                amt = Math.round(liters * 0.55);
+                desc = `Custom 3-Service AMC (${liters}L @ ₹0.55/L)`;
+            }
+
+            document.getElementById('displayAmount').innerText = '₹' + amt;
+            document.getElementById('planSummaryText').innerText = desc;
+            window.activeAmount = amt;
+            window.activeDesc = desc;
+        }
+        calculateTotal();
+
+        let pendingData = null;
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            pendingData = {
+                id: 'SPC-' + Math.floor(1000 + Math.random() * 9000),
+                name: document.getElementById('cName').value,
+                phone: document.getElementById('cPhone').value,
+                address: document.getElementById('cAddress').value,
+                service: window.activeDesc,
+                amount: window.activeAmount,
+                nextDate: new Date(Date.now() + 120 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+            };
+
+            document.getElementById('modalAmount').innerText = '₹' + pendingData.amount;
+            document.getElementById('paymentModal').classList.remove('hidden');
+        }
+
+        function finalizeBooking(paymentMode) {
+            document.getElementById('paymentModal').classList.add('hidden');
+            pendingData.payment = paymentMode;
+            dbBookings.push(pendingData);
+            localStorage.setItem('secureplus_db', JSON.stringify(dbBookings));
+
+            document.getElementById('invName').innerText = pendingData.name;
+            document.getElementById('invPhone').innerText = pendingData.phone;
+            document.getElementById('invAddress').innerText = pendingData.address;
+            document.getElementById('invService').innerText = pendingData.service;
+            document.getElementById('invPrice').innerText = '₹' + pendingData.amount;
+            document.getElementById('invPaymentMode').innerText = pendingData.payment;
+
+            if(paymentMode.includes('Paid')) {
+                document.getElementById('invStatusBadge').innerText = 'PAID & CONFIRMED';
+                document.getElementById('invStatusBadge').style.background = '#d1fae5';
+                document.getElementById('invStatusBadge').style.color = '#065f46';
+            } else {
+                document.getElementById('invStatusBadge').innerText = 'BOOKED (PAY AFTER SERVICE)';
+                document.getElementById('invStatusBadge').style.background = '#fef3c7';
+                document.getElementById('invStatusBadge').style.color = '#92400e';
+            }
+
+            if(pendingData.service.includes('AMC')) {
+                document.getElementById('invAmcBox').classList.remove('hidden');
+            } else {
+                document.getElementById('invAmcBox').classList.add('hidden');
+            }
+
+            document.getElementById('invoiceModal').classList.remove('hidden');
+            renderDB();
+        }
+
+        function closeInvoice() {
+            document.getElementById('invoiceModal').classList.add('hidden');
+            document.querySelector('form').reset();
+            calculateTotal();
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('productGridContainer');
+            container.innerHTML = '';
+            catalogProducts.forEach(prod => {
+                container.innerHTML += `
+                    <div class="product-card">
+                        <div>
+                            <div style="font-weight: bold; font-size: 13px; color: var(--text);">${prod.name}</div>
+                            <div style="color: var(--primary); font-weight: 900; font-size: 15px; margin-top: 4px;">₹${prod.price}</div>
+                        </div>
+                        <button onclick="addToCart(${prod.id})" style="background: var(--secondary); color: white; border: none; padding: 6px; border-radius: 6px; font-size: 11px; font-weight: bold; margin-top: 10px; cursor: pointer;">Add to Cart</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addToCart(id) {
+            const item = catalogProducts.find(p => p.id === id);
+            cart.push(item);
+            updateCartUI();
+            alert(item.name + ' added to cart!');
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCountBadge').innerText = `Cart: ${cart.length} items`;
+            if(cart.length > 0) {
+                document.getElementById('cartSummaryBox').classList.remove('hidden');
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                document.getElementById('cartTotalPrice').innerText = '₹' + total;
+            } else {
+                document.getElementById('cartSummaryBox').classList.add('hidden');
+            }
+        }
+
+        function openProductCheckout() {
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const names = cart.map(i => i.name).join(', ');
+            pendingData = {
+                id: 'SPC-PRD-' + Math.floor(1000 + Math.random() * 9000),
+                name: "Store Product Order",
+                phone: "Customer Order",
+                address: "Samastipur Delivery",
+                service: `Products: ${names}`,
+                amount: total,
+                payment: "Product Order Checkout",
+                nextDate: "N/A"
+            };
+            document.getElementById('modalAmount').innerText = '₹' + total;
+            document.getElementById('paymentModal').classList.remove('hidden');
+            cart = [];
+            updateCartUI();
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('galleryContainer');
+            container.innerHTML = '';
+            galleryItems.forEach(item => {
+                let imgTag = item.img ? `<img src="${item.img}" class="gallery-img">` : `<div class="gallery-img">Sparkling Clean Tank Sample Work</div>`;
+                container.innerHTML += `
+                    <div class="gallery-item">
+                        ${imgTag}
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                            <strong style="font-size: 12px; color: var(--primary);">${item.name}</strong>
+                            <span style="font-size: 11px; color: #f59e0b;">${item.rating}</span>
+                        </div>
+                        <p style="font-size: 11px; color: #475569; margin: 4px 0 0 0;">"${item.text}"</p>
+                    </div>
+                `;
+            });
+        }
+
+        function submitCustomerFeedback(e) {
+            e.preventDefault();
+            const name = document.getElementById('feedName').value;
+            const rating = document.getElementById('feedRating').value;
+            const text = document.getElementById('feedText').value;
+            const fileInput = document.getElementById('feedImgFile');
+
+            let newFeedback = { name, rating, text, img: null };
+
+            if(fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newFeedback.img = e.target.result;
+                    galleryItems.unshift(newFeedback);
+                    localStorage.setItem('secureplus_gallery', JSON.stringify(galleryItems));
+                    renderGallery();
+                    alert('Thank you! Your feedback and photo have been published to our gallery.');
+                    document.querySelector('#section-gallery form').reset();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                galleryItems.unshift(newFeedback);
+                localStorage.setItem('secureplus_gallery', JSON.stringify(galleryItems));
+                renderGallery();
+                alert('Thank you! Your feedback has been published.');
+                document.querySelector('#section-gallery form').reset();
+            }
+        }
+
+        function trackAMC() {
+            const ph = document.getElementById('trackInput').value.trim();
+            const out = document.getElementById('trackOutput');
+            const found = dbBookings.find(b => b.phone === ph);
+            if(found) {
+                out.innerHTML = `<div style="background:#eff6ff; padding:8px; border-radius:6px; color:#1e40af;">Found! Next service date: <strong>${found.nextDate}</strong></div>`;
+            } else {
+                out.innerHTML = `<span style="color:#b45309;">No active booking found. Call WhatsApp 8825119811</span>`;
+            }
+        }
+
+        function renderDB() {
+            const tb = document.getElementById('dbTableBody');
+            tb.innerHTML = '';
+            dbBookings.forEach(b => {
+                tb.innerHTML += `
+                    <tr>
+                        <td><strong>${b.name}</strong><br><span style="color:#94a3b8;">${b.id}</span></td>
+                        <td>${b.phone}<br><span style="color:#94a3b8; font-size:10px;">${b.address}</span></td>
+                        <td>${b.service}</td>
+                        <td style="font-weight:bold; color:var(--primary);">₹${b.amount}<br><span style="font-size:9px; color:#64748b;">${b.payment}</span></td>
+                        <td style="color:var(--accent); font-weight:bold;">${b.nextDate}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function exportCSV() {
+            let csv = "ID,Name,Phone,AddressGPS,Service,Amount,PaymentMode,NextService\n";
+            dbBookings.forEach(b => {
+                csv += `"${b.id}","${b.name}","${b.phone}","${b.address}","${b.service}","${b.amount}","${b.payment}","${b.nextDate}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'secureplus_customers.csv');
+            a.click();
+        }
+
+        function clearDB() {
+            if(confirm('Clear all demo database records?')) {
+                dbBookings = [];
+                localStorage.removeItem('secureplus_db');
+                renderDB();
+            }
+        }
+    </script>
+</body>
+</html>
