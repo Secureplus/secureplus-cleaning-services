@@ -9,7 +9,7 @@
         body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
         header { background: var(--primary); color: white; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         .brand-container { display: flex; align-items: center; gap: 10px; }
-        .logo-box { width: 38px; height: 38px; background: white; color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .logo-box { width: 38px; height: 38px; background: white; color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); overflow: hidden; }
         .brand h1 { font-size: 15px; margin: 0; font-weight: 800; line-height: 1.2; }
         .brand p { font-size: 10px; margin: 2px 0 0 0; color: #93c5fd; }
         .nav-btns { display: flex; gap: 4px; overflow-x: auto; }
@@ -42,13 +42,12 @@
 
     <header>
         <div class="brand-container">
-            <div class="logo-box">SP</div>
+            <div class="logo-box" id="headerLogoBox">SP</div>
             <div class="brand">
                 <h1>Secureplus</h1>
                 <p>Samastipur | Ph: 8825119811</p>
             </div>
         </div>
-        <!-- Notice: Admin button removed completely from public navigation -->
         <div class="nav-btns">
             <button onclick="switchTab('cust')">Book</button>
             <button onclick="switchTab('shop')">Shop</button>
@@ -110,7 +109,6 @@
                 </form>
             </div>
 
-            <!-- AMC Status Checker Card -->
             <div class="card">
                 <h3>Track Your Next AMC Date</h3>
                 <label>Enter Registered Mobile Number</label>
@@ -185,7 +183,7 @@
             <div id="adminLogin" class="card" style="text-align: center; padding: 30px 16px;">
                 <h3>Admin Login</h3>
                 <p style="font-size: 12px; color: #64748b;">Enter PIN to view database & export Excel sheet.</p>
-                <input type="password" id="adminPin" placeholder="Enter PIN (5678)" style="text-align: center; max-width: 200px; margin: 10px auto;">
+                <input type="password" id="adminPin" placeholder="Enter PIN (Default: 5678)" style="text-align: center; max-width: 200px; margin: 10px auto;">
                 <button type="button" onclick="loginAdmin()" class="btn-main" style="max-width: 200px; margin: 10px auto;">Login</button>
             </div>
 
@@ -210,6 +208,19 @@
                         </table>
                     </div>
                     <button onclick="clearDB()" style="background: none; border: none; color: #ef4444; font-size: 11px; margin-top: 12px; cursor: pointer; text-decoration: underline;">Clear All Database Records</button>
+                </div>
+
+                <!-- Admin Profile & Security Settings Card -->
+                <div class="card" style="margin-top: 16px;">
+                    <h3>Admin Profile & Security Settings</h3>
+                    
+                    <label>Change Admin Password (PIN)</label>
+                    <input type="password" id="newAdminPin" placeholder="Enter new 4-digit PIN" style="margin-bottom: 8px;">
+                    <button type="button" onclick="updateAdminPin()" class="btn-main" style="background: var(--primary);">Update Password</button>
+                    
+                    <label style="margin-top: 14px;">Update Header Logo / Profile Picture (Image URL or Short Text)</label>
+                    <input type="text" id="adminLogoInput" placeholder="Paste Image URL or short text (e.g. SP)" style="margin-bottom: 8px;">
+                    <button type="button" onclick="updateAdminLogo()" class="btn-secondary">Update Profile Picture / Logo</button>
                 </div>
             </div>
         </div>
@@ -277,22 +288,57 @@
             { name: "Private Residence (Kashipur)", rating: "★★★★★ (5/5)", text: "Very thorough scrubbing and vacuuming. Water is crystal clear now.", img: null }
         ];
 
-        // CHECK IF URL HAS SECRET ADMIN TRIGGER ON LOAD
         window.onload = function() {
             if(window.location.hash === '#admin') {
                 switchTab('admin');
             }
+            loadAdminLogo();
         };
 
-        // ADMIN LOGIN CHECK (PIN is set to 5678)
+        function loadAdminLogo() {
+            const savedLogo = localStorage.getItem('secureplus_admin_logo');
+            const logoBox = document.getElementById('headerLogoBox');
+            if(savedLogo) {
+                if(savedLogo.startsWith('http') || savedLogo.startsWith('data:')) {
+                    logoBox.innerHTML = `<img src="${savedLogo}" style="width:100%;height:100%;object-fit:cover;">`;
+                } else {
+                    logoBox.innerText = savedLogo;
+                }
+            }
+        }
+
         function loginAdmin() {
             const pin = document.getElementById('adminPin').value;
-            if(pin === '5678') {
+            const correctPin = localStorage.getItem('secureplus_admin_pin') || '5678';
+            if(pin === correctPin) {
                 document.getElementById('adminLogin').classList.add('hidden');
                 document.getElementById('adminPanelContent').classList.remove('hidden');
                 renderDB();
             } else {
                 alert('Wrong PIN! Please try again.');
+            }
+        }
+
+        function updateAdminPin() {
+            const newPin = document.getElementById('newAdminPin').value.trim();
+            if(newPin.length >= 4) {
+                localStorage.setItem('secureplus_admin_pin', newPin);
+                alert('Admin PIN updated successfully!');
+                document.getElementById('newAdminPin').value = '';
+            } else {
+                alert('Please enter a valid PIN (at least 4 characters).');
+            }
+        }
+
+        function updateAdminLogo() {
+            const logoVal = document.getElementById('adminLogoInput').value.trim();
+            if(logoVal) {
+                localStorage.setItem('secureplus_admin_logo', logoVal);
+                loadAdminLogo();
+                alert('Profile picture/logo updated successfully!');
+                document.getElementById('adminLogoInput').value = '';
+            } else {
+                alert('Please enter valid text or an image URL.');
             }
         }
 
